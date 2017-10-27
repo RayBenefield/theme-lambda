@@ -32,10 +32,15 @@ function fish_prompt
 #fi
   set -l normal (set_color normal)
   set -l white (set_color FFFFFF)
+  set -l black (set_color 333333)
+  set -l cyan (set_color cyan)
+  set -l bgcyan (set_color -b cyan)
+  set -l bgnormal (set_color -b normal)
   set -l turquoise (set_color 5fdfff)
   set -l orange (set_color df5f00)
   set -l hotpink (set_color df005f)
   set -l blue (set_color blue)
+  set -l bgblue (set_color -b blue)
   set -l limegreen (set_color 87ff00)
   set -l purple (set_color af5fff)
  
@@ -50,13 +55,15 @@ function fish_prompt
   set -g __fish_git_prompt_showstashstate true
   set -g __fish_git_prompt_show_informative_status true 
  
+  set -l dir (pwd | string replace '/' '' | string replace 'Users/RayBenefield/' '' | string replace -a '/' '  ')
+
   # Line 1
-  echo -n $white'╭─'$hotpink$USER$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd)$turquoise
-  __fish_git_prompt " (%s)"
+  echo -n $cyan╭$black$bgcyan $USER $bgblue$cyan $dir $bgnormal$blue$turquoise
+  __fish_git_prompt " 〖%s〗"
   echo
 
   # Line 2
-  echo -n $white'╰─'$__fish_prompt_char $normal
+  echo -n $cyan'╰→' $normal
 end
 
 

@@ -1,14 +1,21 @@
 function fish_right_prompt
+  set -l exit $status
   __tmux_prompt
-  set -l exit_code $status
-  if test $exit_code -ne 0
+  set -l symbol
+  if test $exit -ne 0
     set_color red
+    set symbol ✘
   else
-    set_color 666666
+    set_color green
+    set symbol ✔
+    set exit ''
   end
-  printf '%d' $exit_code
-  set_color 666666
-  printf ' < %s' (date +%H:%M:%S)
+  echo $symbol' '$exit' '
+
+  set -l white (set_color cyan)
+  set -l black (set_color 333333)
+  set -l bgwhite (set_color -b cyan)
+  printf $white''$black$bgwhite' %s ' (date +%H:%M:%S)
   set_color normal
 end
 
